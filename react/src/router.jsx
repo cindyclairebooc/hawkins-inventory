@@ -7,6 +7,8 @@ import GuestLayout from './components/GuestLayout.jsx';
 import Dashboard from './views/Dashboard.jsx';
 import UserForm from './views/UserForm.jsx';
 import Users from './views/Users.jsx';
+import Order from './views/Order.jsx';
+import OrderForm from './views/OrderForm.jsx';
 
 
 const router = createBrowserRouter ([
@@ -33,6 +35,18 @@ const router = createBrowserRouter ([
             {
                 path: '/users/:id',
                 element: <UserForm key="userUpdate"/>,
+            },
+            {
+                path: '/orders',
+                element: <Order/>,
+            },
+            {
+                path: '/orders/new',
+                element: <OrderForm />,
+            },
+            {
+                path: '/orders/:id',
+                element: <OrderForm key="orderUpdate"/>,
             },
         ]
     },

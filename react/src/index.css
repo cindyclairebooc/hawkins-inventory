@@ -241,3 +241,57 @@ table > tbody > tr > td {
         transform: translateY(0);
     }
 }
+
+/* OrderForm.css */
+
+.radio-group {
+    display: flex;
+    gap: 10px;
+    margin: 15px 0;
+  }
+
+  .radio-label {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
+  }
+
+  input[type="radio"] {
+    margin-right: 5px;
+  }
+
+  .radio-label input[type="radio"]:checked + span {
+    font-weight: bold;
+    color: #007BFF; /* Change to your preferred color */
+  }
+
+  .card {
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+
+  .btn {
+    padding: 10px 20px;
+    background-color:  #00a762;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+  .btn:hover {
+    background-color: #0056b3; /* Change to your preferred hover color */
+  }
+
+  .alert {
+    margin-bottom: 15px;
+    padding: 15px;
+    color: #721c24;
+    background-color: #f8d7da;
+    border: 1px solid #f5c6cb;
+    border-radius: 4px;
+  }
