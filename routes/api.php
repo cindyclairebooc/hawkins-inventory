@@ -7,11 +7,12 @@ use App\Http\Controllers\Api\UserController;
 
 
 
-Route::middleware('auth:sanctum')->group(function() {
+Route::middleware('auth:sanctum')->group(function () {
+    Route::post('/logout', [AuthController::class, 'logout']);
+    Route::put('users/{id}', [UserController::class, 'update']);
     Route::get('/user', function (Request $request) {
         return $request->user();
     });
-    Route::post('/logout', [AuthController::class, 'logout']);
     Route::apiResource('/users', UserController::class);
 });
 

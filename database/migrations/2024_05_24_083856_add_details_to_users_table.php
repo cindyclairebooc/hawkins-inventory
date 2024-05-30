@@ -13,7 +13,6 @@ return new class extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->string('gender')->nullable(); // Add gender field
-            $table->integer('age')->nullable(); // Add age field
             $table->date('date_of_birth')->nullable(); // Add date of birth field
         });
     }
@@ -25,7 +24,6 @@ return new class extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->dropColumn('gender');
-            $table->dropColumn('age');
             $table->dropColumn('date_of_birth');
         });
     }

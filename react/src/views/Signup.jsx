@@ -1,14 +1,16 @@
-import {Link} from "react-router-dom";
-import {createRef, useState} from "react";
+import { Link } from "react-router-dom";
+import { createRef, useState } from "react";
 import axiosClient from "../axios-client.js";
 import { useStateContext } from "../contexts/EmployeeContextProvider.jsx";
 
 export default function Signup() {
   const nameRef = createRef();
   const emailRef = createRef();
+  const genderRef = createRef();
+  const birthRef = createRef();
   const passwordRef = createRef();
   const passwordConfirmationRef = createRef();
-  const {setUser, setToken} = useStateContext();
+  const { setUser, setToken } = useStateContext();
   const [errors, setErrors] = useState(null);
 
   const onSubmit = ev => {
@@ -17,6 +19,8 @@ export default function Signup() {
     const payload = {
       name: nameRef.current.value,
       email: emailRef.current.value,
+      gender: genderRef.current.value,
+      date_of_birth: birthRef.current.value,
       password: passwordRef.current.value,
       password_confirmation: passwordConfirmationRef.current.value,
     };
@@ -50,6 +54,12 @@ export default function Signup() {
           )}
           <input ref={nameRef} type="text" placeholder="Full Name"/>
           <input ref={emailRef} type="email" placeholder="Email Address"/>
+          <select ref={genderRef} defaultValue="">
+            <option value="" disabled>Select Gender</option>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+          </select>
+          <input ref={birthRef} type="date" placeholder="Date of Birth"/>
           <input ref={passwordRef} type="password" placeholder="Password"/>
           <input ref={passwordConfirmationRef} type="password" placeholder="Repeat Password"/>
           <button className="btn btn-block">Signup</button>

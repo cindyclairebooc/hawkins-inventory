@@ -2,10 +2,11 @@ import { useEffect } from "react";
 import { useState } from "react";
 import axiosClient from "../axios-client";
 import { Link } from "react-router-dom";
+import { useStateContext } from "../contexts/EmployeeContextProvider";
 
 
 export default function Users() {
-  const [users, setUsers] = useState( []);
+  const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(false)
 
   useEffect(() => {
@@ -22,10 +23,6 @@ export default function Users() {
       getUsers()
     })
   }
-
-  
-
-
 
   const getUsers = () => {
     setLoading(true)
@@ -53,6 +50,8 @@ export default function Users() {
                   <th>Name</th>
                   <th>Email</th>
                   <th>Create Date</th>
+                  <th>Gender</th>
+                  <th>Date of Birth</th>
                   <th>Actions</th>
                 </tr>
               </thead>
@@ -67,11 +66,13 @@ export default function Users() {
               {!loading && 
                 <tbody>
                 {users.map(u => (
-                  <tr>
+                  <tr key={u.id}>
                     <td>{u.id}</td>
                     <td>{u.name}</td>
                     <td>{u.email}</td>
                     <td>{u.created_at}</td>
+                    <td>{u.gender}</td>
+                    <td>{u.date_of_birth}</td>
                     <td>
                       <Link className="btn-edit" to={'/users/' + u.id}>Edit</Link>
                       &nbsp;

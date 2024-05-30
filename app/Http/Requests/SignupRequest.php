@@ -31,7 +31,9 @@ class SignupRequest extends FormRequest
                 Password::min(8)
                     ->letters()
                     ->symbols()
-            ]
+            ],
+            'gender' => 'required|in:Male,Female',
+            'date_of_birth' => 'required|date|before:today'
         ];
     }
 }
