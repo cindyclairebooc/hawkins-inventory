@@ -9,6 +9,16 @@ import UserForm from './views/UserForm.jsx';
 import Users from './views/Users.jsx';
 import Order from './views/Order.jsx';
 import OrderForm from './views/OrderForm.jsx';
+import Department from './views/Department.jsx';
+import DepartmentForm from './views/DepartmentForm.jsx';
+import Position from './views/Position.jsx';
+import PositionForm from './views/PositionForm.jsx';
+import Items from './views/Item.jsx';
+import ItemForm from './views/ItemForm.jsx';
+import Categories from './views/Categories.jsx';
+import CategoryForm from './views/CategoryForm.jsx';
+import CustomerDashboard from './views/CustomerDashboard.jsx';
+import DefaultLayoutCustomer from './components/DefaultLayoutCustomer.jsx';
 
 
 const router = createBrowserRouter ([
@@ -48,6 +58,54 @@ const router = createBrowserRouter ([
                 path: '/orders/:id',
                 element: <OrderForm key="orderUpdate"/>,
             },
+            {
+                path: '/departments',
+                element: <Department/>,
+            },
+            {
+                path: '/departments/new',
+                element: <DepartmentForm />,
+            },
+            {
+                path: '/departments/:id',
+                element: <DepartmentForm key="departmentUpdate"/>,
+            },
+            {
+                path: '/positions',
+                element: <Position/>,
+            },
+            {
+                path: '/positions/new',
+                element: <PositionForm />,
+            },
+            {
+                path: '/positions/:id',
+                element: <PositionForm key="positionUpdate"/>,
+            },
+            {
+                path: '/items',
+                element: <Items />,
+            },
+            {
+                path: '/items/new',
+                element: <ItemForm />,
+            },
+            {
+                path: '/items/:id',
+                element: <ItemForm key="ItemUpdate"/>,
+            },
+            {
+                path: '/categories',
+                element: <Categories />,
+            },
+            {
+                path: '/categories/new',
+                element: <CategoryForm />,
+            },
+            {
+                path: '/categories/:id',
+                element: <CategoryForm key="CategoryUpdate"/>,
+            },
         ]
     },
     {
@@ -68,6 +126,16 @@ const router = createBrowserRouter ([
         path: '*',
         element: <NotFound />,
     },
+    {
+        path: '/customer/dashboard',
+        element: <DefaultLayoutCustomer />,
+        children: [
+            {
+                path: '/customer/dashboard',
+                element: <CustomerDashboard />,
+            },
+        ]
+    }
 ]);
 
 export default router;

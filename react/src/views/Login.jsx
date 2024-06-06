@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import {createRef, useState} from "react";
+import { createRef, useState } from "react";
 import axiosClient from "../axios-client.js";
 import { useStateContext } from "../contexts/EmployeeContextProvider.jsx";
 
@@ -7,7 +7,7 @@ export default function Login() {
 
     const emailRef = createRef();
     const passwordRef = createRef();
-    const {setUser, setToken} = useStateContext();
+    const { setUser, setToken } = useStateContext();
     const [errors, setErrors] = useState(null);
 
     const onSubmit = (ev) => {
@@ -41,27 +41,34 @@ export default function Login() {
     };
 
     return (
-        <div className="login-signup-form animated fadeInDown">
-            <div className="form">
+        <div className="flex justify-center items-center h-screen bg-green-300">
+          <div className="max-w-md w-full bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+            <h1 className="text-3xl font-bold text-center mb-8 text-green-600">Welcome to Hawkins!</h1>
+            <h1 className="text-2xl font-bold mb-6 text-center">Login to Your Account</h1>
             <form onSubmit={onSubmit}>
-                <h1 className = "title">
-                    Login into your account!
-                </h1>
-                {errors && (
-                <div className="alert">
-                    {Object.keys(errors).map(key => (
-                        <p key={key}>{errors[key][0]}</p>
-                    ))}
+              {errors && (
+                <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4" role="alert">
+                  {Object.keys(errors).map((key) => (
+                    <p key={key}>{errors[key][0]}</p>
+                  ))}
                 </div>
-                )}
-                <input ref={emailRef} type="email" placeholder="Email" />
-                <input ref={passwordRef} type="password" placeholder="Password" />
-                <button className="btn btn-block">Login</button>
-                <p className="message">
-                    Not Registered? <Link to="/signup">Create an account!</Link>
-                </p> 
+              )}
+              <div className="mb-4">
+                <label htmlFor="email" className="block text-gray-700 text-sm font-bold mb-2">Email</label>
+                <input ref={emailRef} type="email" id="email" placeholder="Enter your email" className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
+              </div>
+              <div className="mb-6">
+                <label htmlFor="password" className="block text-gray-700 text-sm font-bold mb-2">Password</label>
+                <input ref={passwordRef} type="password" id="password" placeholder="Enter your password" className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
+              </div>
+              <div className="flex items-center justify-between">
+                <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Login</button>
+              </div>
+              <p className="mt-6 text-center text-gray-600 text-sm">
+                Not registered? <Link to="/signup" className="text-blue-500 hover:underline">Create an account!</Link>
+              </p>
             </form>
-            </div> 
+          </div>
         </div>
-    )
-}
+      );
+    }

@@ -20,12 +20,15 @@ class UpdateUserRequest extends FormRequest
         return [
             'name' => 'required|string|max:55',
             'email' => 'required|email|unique:users,email,'.$this->id,
+            'user_type' => 'required|string|in:customer,other_type',
             'password' => [
                 'confirmed',
                 Password::min(8)
                 ->letters()
                 ->symbols()
-            ]
+            ],
+            'department_id' => 'required|exists:departments,id',
+            'position_id' => 'required|exists:positions,id',
         ];
     }
 }

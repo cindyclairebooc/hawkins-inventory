@@ -34,7 +34,10 @@ class StoreUserRequest extends FormRequest
                     ->symbols()
             ],
             'gender' => 'required|in:Male,Female',
-            'date_of_birth' => 'required|date|before:today'
+            'date_of_birth' => 'required|date|before:today',
+            'department_id' => 'required|exists:departments,id',
+            'position_id' => 'required|exists:positions,id',
+            'user_type' => 'required|string|in:customer,other_type',
         ];
     }
 }

@@ -1,5 +1,4 @@
-import { useEffect } from "react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axiosClient from "../axios-client";
 import { Link } from "react-router-dom";
 
@@ -21,7 +20,6 @@ export default function Orders() {
     });
   };
 
-
   const getOrders = () => {
     setLoading(true);
     axiosClient.get("/orders")
@@ -34,67 +32,55 @@ export default function Orders() {
       });
   };
 
-
   return (
-    <div>
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-        }}
-      >
-        <h1>Orders</h1>
-        <Link to="/orders/new" className="btn-add">
-          Add Order
-        </Link>
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="flex justify-between items-center mb-8">
+        <h1 className="text-3xl font-semibold text-gray-800">Orders</h1>
+        <Link to="/orders/new" className="btn-add">Add new</Link>
       </div>
-      <div className="card animated fadeInDown">
-        <table>
-          <thead>
+      <div className="bg-white shadow overflow-hidden sm:rounded-lg">
+        <table className="min-w-full divide-y divide-gray-200">
+          <thead className="bg-gray-50">
             <tr>
-              <th>ID</th>
-              <th>Customer</th>
-              <th>Product</th>
-              <th>Quantity</th>
-              <th>Status</th>
-              <th>Actions</th>
+              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-teal-600 uppercase tracking-wider">ID</th>
+              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-teal-600 uppercase tracking-wider">Customer</th>
+              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-teal-600 uppercase tracking-wider">Product</th>
+              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-teal-600 uppercase tracking-wider">Quantity</th>
+              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-teal-600 uppercase tracking-wider">Status</th>
+              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-teal-600 uppercase tracking-wider">Actions</th>
             </tr>
           </thead>
-          {loading && (
-            <tbody>
+          <tbody className="bg-white divide-y divide-gray-200">
+            {loading ? (
               <tr>
-                <td colSpan="7" className="text-center">
+                <td colSpan="6" className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                   Loading...
                 </td>
               </tr>
-            </tbody>
-          )}
-          {!loading &&
-            <tbody>
-              {orders.map(order => (
+            ) : (
+              orders.map(order => (
                 <tr key={order.id}>
-                  <td>{order.id}</td>
-                  <td>{order.customer}</td>
-                  <td>{order.product}</td>
-                  <td>{order.quantity}</td>
-                  <td>{order.status}</td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{order.id}</td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{order.customer}</td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{order.product}</td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{order.quantity}</td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{order.status}</td>
                   <td>
-                    <Link className="btn-edit" to={'/orders/' + order.id}>
+                    <Link to={'/orders/' + order.id} className="text-indigo-600 hover:text-indigo-900 mr-2">
                       Edit
                     </Link>
                     &nbsp;
                     <button
                       onClick={() => onDelete(order)}
-                      className="btn-delete"
+                      className="text-red-600 hover:text-red-900"
                     >
                       Delete
                     </button>
                   </td>
                 </tr>
-              ))}
-            </tbody>
-          }
+              ))
+            )}
+          </tbody>
         </table>
       </div>
     </div>

@@ -33,7 +33,8 @@ class SignupRequest extends FormRequest
                     ->symbols()
             ],
             'gender' => 'required|in:Male,Female',
-            'date_of_birth' => 'required|date|before:today'
+            'date_of_birth' => 'required|date|before:today',
+            'user_type' => 'required|string|in:customer,admin'
         ];
     }
 }

@@ -26,3 +26,12 @@ axiosClient.interceptors.response.use((response) => {
 });
 
 export default axiosClient;
+
+export const getDepartments = () => {
+    return axiosClient.get("/departments").then(({ data }) => data.data);
+  };
+
+export const getPositions = () => {
+    return axiosClient.get("/positions").then(({ data }) => data.data);
+  };
+

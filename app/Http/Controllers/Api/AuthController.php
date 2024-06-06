@@ -18,16 +18,20 @@ class AuthController extends Controller
         $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
-            'gender' => $data['gender'], // Add gender
-            'date_of_birth' => $data['date_of_birth'], // Add date of birth
+            'gender' => $data['gender'],
+            'date_of_birth' => $data['date_of_birth'],
             'password' => bcrypt($data['password']),
+            'department_id' => $data['department_id'],
+            'position_id' => $data['position_id'],
+            'user_type' => $data['user_type']
         ]);
 
         $token = $user->createToken('main')->plainTextToken;
 
         return response()->json([
             'user' => $user,
-            'token' => $token
+            'token' => $token,
+            'redirect_url' => $user->user_type === 'customer' ? '/customer/dashboard' : '/dashboard'
         ]);
     }
 

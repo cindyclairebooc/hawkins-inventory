@@ -21,7 +21,10 @@ class UserResource extends JsonResource
             'email' => $this->email,
             'gender' => $this->gender,
             'date_of_birth' => $this->date_of_birth,
+            'department_id' => $this->department_id,
+            'position_id' => $this->position_id,
             'created_at' => $this->created_at->format('Y-m-d H:i:s'),
+            'user_type' => $this->user_type,
         ];
     }
 }
