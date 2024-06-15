@@ -7,6 +7,7 @@ use App\Http\Requests\StoreOrderRequest;
 use App\Http\Requests\UpdateOrderRequest;
 use App\Http\Resources\OrderResource;
 use App\Models\Order;
+use App\Models\Item;
 use Illuminate\Http\Response;
 
 class OrderController extends Controller
@@ -18,7 +19,7 @@ class OrderController extends Controller
      */
     public function index()
     {
-        return OrderResource::collection(Order::query()->orderBy('id', 'desc')->paginate(10));
+        return OrderResource::collection(Order::query()->orderBy('id', 'asc')->paginate(10));
     }
 
     /**
@@ -29,10 +30,17 @@ class OrderController extends Controller
      */
     public function store(StoreOrderRequest $request)
     {
-    $data = $request->validated();
-    $order = Order::create($data);
+        $data = $request->validated();
+        $order = Order::create($data);
 
-    return response()->json(new OrderResource($order), Response::HTTP_CREATED);
+        // If status is 'Completed', update the stock
+        if ($data['status'] === 'Completed') {
+            $item = Item::findOrFail($data['item_id']);
+            $item->stock += $data['quantity'];
+            $item->save();
+        }
+
+        return response()->json(new OrderResource($order), Response::HTTP_CREATED);
     }
 
     /**
@@ -43,7 +51,7 @@ class OrderController extends Controller
      */
     public function show(Order $order)
     {
-    return response()->json(new OrderResource($order), Response::HTTP_OK);
+        return response()->json(new OrderResource($order), Response::HTTP_OK);
     }
 
     /**
@@ -55,10 +63,18 @@ class OrderController extends Controller
      */
     public function update(UpdateOrderRequest $request, Order $order)
     {
-    $data = $request->validated();
-    $order->update($data);
+        $data = $request->validated();
 
-    return response()->json(new OrderResource($order), Response::HTTP_OK);
+        // If status is being updated to 'Completed', update the stock
+        if ($order->status !== 'Completed' && $data['status'] === 'Completed') {
+            $item = Item::findOrFail($data['item_id']);
+            $item->stock += $data['quantity'];
+            $item->save();
+        }
+
+        $order->update($data);
+
+        return response()->json(new OrderResource($order), Response::HTTP_OK);
     }
 
     /**

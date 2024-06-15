@@ -13,8 +13,8 @@ class UpdateOrderRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'customer' => 'required|string|max:255',
-            'product' => 'required|string|max:255',
+            'item_id' => 'required|exists:items,id',
+            'supplier_id' => 'required|exists:suppliers,id',
             'quantity' => 'required|integer|min:1',
             'status' => 'required|string|in:Pending,Completed,Cancelled',
         ];

@@ -24,7 +24,7 @@ class UserResource extends JsonResource
             'department_id' => $this->department_id,
             'position_id' => $this->position_id,
             'created_at' => $this->created_at->format('Y-m-d H:i:s'),
-            'user_type' => $this->user_type,
+            //'user_type' => $this->user_type,
         ];
     }
 }

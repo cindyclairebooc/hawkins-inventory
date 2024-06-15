@@ -15,8 +15,12 @@ import Position from './views/Position.jsx';
 import PositionForm from './views/PositionForm.jsx';
 import Items from './views/Item.jsx';
 import ItemForm from './views/ItemForm.jsx';
-import Categories from './views/Categories.jsx';
+import Category from './views/Category.jsx';
 import CategoryForm from './views/CategoryForm.jsx';
+import Supplier from './views/Supplier.jsx';
+import SupplierForm from './views/SupplierForm.jsx';
+import Transaction from'./views/Transaction.jsx';
+import TransactionForm from './views/TransactionForm.jsx';
 import CustomerDashboard from './views/CustomerDashboard.jsx';
 import DefaultLayoutCustomer from './components/DefaultLayoutCustomer.jsx';
 
@@ -96,7 +100,7 @@ const router = createBrowserRouter ([
             },
             {
                 path: '/categories',
-                element: <Categories />,
+                element: <Category />,
             },
             {
                 path: '/categories/new',
@@ -105,6 +109,30 @@ const router = createBrowserRouter ([
             {
                 path: '/categories/:id',
                 element: <CategoryForm key="CategoryUpdate"/>,
+            },
+            {
+                path: '/suppliers',
+                element: <Supplier />,
+            },
+            {
+                path: '/suppliers/new',
+                element: <SupplierForm />,
+            },
+            {
+                path: '/suppliers/:id',
+                element: <SupplierForm key="SupplierUpdate"/>,
+            },
+            {
+                path: '/transactions',
+                element: <Transaction />,
+            },
+            {
+                path: '/transactions/new',
+                element: <TransactionForm />,
+            },
+            {
+                path: '/transactions/:id',
+                element: <TransactionForm key="TransactionUpdate"/>,
             },
         ]
     },

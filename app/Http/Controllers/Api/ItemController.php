@@ -19,7 +19,7 @@ class ItemController extends Controller
     public function index()
     {
         return ItemResource::collection(
-            Item::query()->orderBy('items_id', 'desc')->paginate(10)
+            Item::query()->orderBy('id', 'asc')->paginate(10)
         );
     }
 
@@ -51,7 +51,7 @@ class ItemController extends Controller
         $data = $request->validated();
         $item->update($data);
 
-        return new ItemResource($item);
+        return response()->json(new ItemResource($item), Response::HTTP_OK);
     }
 
     /**

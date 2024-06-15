@@ -4,10 +4,14 @@ import { Link } from "react-router-dom";
 
 export default function Orders() {
   const [orders, setOrder] = useState([]);
+  const [item, setItem] = useState([]);
+  const [supplier, setSupplier] = useState([]);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     getOrders();
+    getItems();
+    getSuppliers();
   }, []);
 
   const onDelete = (order) => {
@@ -32,6 +36,26 @@ export default function Orders() {
       });
   };
 
+  const getItems = () => {
+    axiosClient.get('/items')
+      .then(({ data }) => {
+        setItem(data.data);
+      })
+      .catch(() => {
+        console.error('Error fetching items');
+      });
+  };
+
+  const getSuppliers = () => {
+    axiosClient.get('/suppliers')
+      .then(({ data }) => {
+        setSupplier(data.data);
+      })
+      .catch(() => {
+        console.error('Error fetching suppliers');
+      });
+  };
+
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div className="flex justify-between items-center mb-8">
@@ -43,8 +67,8 @@ export default function Orders() {
           <thead className="bg-gray-50">
             <tr>
               <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-teal-600 uppercase tracking-wider">ID</th>
-              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-teal-600 uppercase tracking-wider">Customer</th>
-              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-teal-600 uppercase tracking-wider">Product</th>
+              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-teal-600 uppercase tracking-wider">Item</th>
+              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-teal-600 uppercase tracking-wider">Supplier</th>
               <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-teal-600 uppercase tracking-wider">Quantity</th>
               <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-teal-600 uppercase tracking-wider">Status</th>
               <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-teal-600 uppercase tracking-wider">Actions</th>
@@ -61,8 +85,8 @@ export default function Orders() {
               orders.map(order => (
                 <tr key={order.id}>
                   <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{order.id}</td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{order.customer}</td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{order.product}</td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{item.find(i => i.id === order.item_id)?.item_name}</td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{supplier.find(s => s.id === order.supplier_id)?.supplier_name}</td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{order.quantity}</td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{order.status}</td>
                   <td>

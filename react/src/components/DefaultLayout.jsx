@@ -40,6 +40,8 @@ export default function DefaultLayout() {
                 <Link to="/categories" className="text-lg font-medium hover:text-gray-300"> Categories </Link>
                 <Link to="/departments" className="text-lg font-medium hover:text-gray-300">Departments</Link>
                 <Link to="/positions" className="text-lg font-medium hover:text-gray-300">Positions</Link>
+                <Link to="/suppliers" className="text-lg font-medium hover:text-gray-300">Suppliers</Link>
+                <Link to="/transactions" className="text-lg font-medium hover:text-gray-300">Transactions</Link>
             </aside>
             <div className="flex-1 flex flex-col">
                 <header className="bg-gray-200 p-4 flex justify-between items-center">

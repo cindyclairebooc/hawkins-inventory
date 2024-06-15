@@ -62,14 +62,13 @@ const Dashboard = () => {
               {items.map((item) => (
                 <Link
                   key={item.items_id}
-                  to={`/items/${item.items_id}`}
+                  to={`/items/${item.id}`}
                   className="bg-white p-4 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300"
                 >
                   <h3 className="text-lg font-semibold mb-2">{item.item_name}</h3>
                   <p className="text-sm text-gray-600 mb-2">Manufactured Date: {item.manufactured_date}</p>
                   <p className="text-sm text-gray-600 mb-2">Price: ${item.price}</p>
                   <p className="text-sm text-gray-600">Stock: {item.stock}</p>
-                  {/* <p className="text-sm text-gray-600 mb-2">Category: {i.category_name}</p> */}
                   <p className="text-sm text-gray-600">{item.description}</p>
                 </Link>
               ))}

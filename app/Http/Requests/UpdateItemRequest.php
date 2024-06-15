@@ -18,7 +18,7 @@ class UpdateItemRequest extends FormRequest
             'manufactured_date' => 'sometimes|required|date',
             'price' => 'sometimes|required|numeric|min:0',
             'stock' => 'sometimes|required|integer|min:0',
-            // 'category_id' => 'sometimes|required|exists:categories,category_id',
+            'category_id' => 'required|exists:categories,id',
         ];
     }
 }

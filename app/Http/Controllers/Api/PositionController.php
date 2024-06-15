@@ -18,7 +18,7 @@ class PositionController extends Controller
      */
     public function index()
     {
-        return PositionResource::collection(Position::query()->orderBy('id', 'desc')->paginate(10));
+        return PositionResource::collection(Position::query()->orderBy('id', 'asc')->paginate(10));
     }
 
     /**

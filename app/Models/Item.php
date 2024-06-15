@@ -9,18 +9,18 @@ class Item extends Model
 {
     use HasFactory;
 
-    protected $primaryKey = 'items_id';
+    protected $primaryKey = 'id';
 
     protected $fillable = [
         'item_name',
         'manufactured_date',
         'price',
         'stock',
-        // 'category_id',
+        'category_id',
     ];
 
-    // public function category()
-    // {
-    //     return $this->belongsTo(Category::class, 'category_id', 'category_id');
-    // }
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
 }
