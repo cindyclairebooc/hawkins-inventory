@@ -34,16 +34,3 @@ export const getDepartments = () => {
 export const getPositions = () => {
     return axiosClient.get("/positions").then(({ data }) => data.data);
   };
-
-export const getCategories = () => {
-    return axiosClient.get("/categories").then(({ data }) => data.data);
-  };
-
-export const getItems = () => {
-    return axiosClient.get("/items").then(({ data }) => data.data);
-  };
-
-export const getSuppliers = () => {
-    return axiosClient.get("/suppliers").then(({ data }) => data.data);
-  };
-

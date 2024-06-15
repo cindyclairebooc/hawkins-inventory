@@ -35,9 +35,9 @@ class StoreUserRequest extends FormRequest
             ],
             'gender' => 'required|in:Male,Female',
             'date_of_birth' => 'required|date|before:today',
+            'user_type' => 'required|string|in:customer,admin,employee', // Ensure user_type is validated
             'department_id' => 'required|exists:departments,id',
             'position_id' => 'required|exists:positions,id',
-            'user_type' => 'required|string|in:customer,other_type',
         ];
     }
 }

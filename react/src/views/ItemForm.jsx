@@ -1,21 +1,18 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import axiosClient from "../axios-client";
-import { getCategories } from "../axios-client";
 
 export default function ItemForm() {
   const { id } = useParams();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState(null);
-  const [category, setCategory] = useState([]);
   const [item, setItem] = useState({
     id: null,
     item_name: '',
     manufactured_date: '',
     price: '',
     stock: '',
-    category_id: '',
   });
 
   useEffect(() => {
@@ -31,28 +28,14 @@ export default function ItemForm() {
           console.error("Error fetching item:", error);
         });
     }
-
-    getCategories()
-      .then((data) => {
-        if (Array.isArray(data)) {
-          setCategory(data);
-        } else {
-          console.error('Category response is not an array');
-        }
-      })
-      .catch(err => console.error(err));
-
   }, [id]);
 
   const onSubmit = ev => {
     ev.preventDefault();
-    const itemData = {
-      ...item,
-      category_id: parseInt(item.category_id),
-    };
+    setErrors(null);
 
     if (item.id) {
-      axiosClient.put(`/items/${item.id}`, itemData)
+      axiosClient.put(`/items/${item.id}`, item)
         .then(() => {
           navigate('/items');
         })
@@ -75,10 +58,6 @@ export default function ItemForm() {
         });
     }
   };
-
-  const handleCategoryChange = (value) => {
-    setItem(prevItem => ({ ...prevItem, category_id: parseInt(value) }));
-  };  
 
   return (
     <>
@@ -122,17 +101,6 @@ export default function ItemForm() {
               placeholder="Stock"
               className="w-full px-3 py-2 border rounded"
             />
-            <select 
-              value={item.category_id} 
-              onChange={ev => handleCategoryChange(ev.target.value)} 
-              placeholder="Category"
-              className="w-full px-3 py-2 border rounded"
-            >
-            <option value="">Select Category</option>
-              {category.map(category => (
-              <option key={category.id} value={category.id}>{category.cat_name}</option>
-              ))}
-            </select>
             <button type="submit" className="btn bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">{item.id ? 'Update' : 'Save'}</button>
           </form>
         )}

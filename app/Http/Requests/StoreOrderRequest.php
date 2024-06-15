@@ -9,8 +9,8 @@ class StoreOrderRequest extends FormRequest
     public function rules()
     {
         return [
-            'item_id' => 'required|exists:items,id',
-            'supplier_id' => 'required|exists:suppliers,id',
+            'customer' => 'required|string|max:255',
+            'product' => 'required|string|max:255',
             'quantity' => 'required|integer|min:1',
             'status' => 'required|string|in:Pending,Completed,Cancelled',
         ];

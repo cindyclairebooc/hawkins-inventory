@@ -16,11 +16,11 @@ class Item extends Model
         'manufactured_date',
         'price',
         'stock',
-        'category_id',
+        // 'category_id',
     ];
 
-    public function category()
-    {
-        return $this->belongsTo(Category::class);
-    }
+    // public function category()
+    // {
+    //     return $this->belongsTo(Category::class, 'category_id', 'category_id');
+    // }
 }

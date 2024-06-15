@@ -21,9 +21,9 @@ class AuthController extends Controller
             'gender' => $data['gender'],
             'date_of_birth' => $data['date_of_birth'],
             'password' => bcrypt($data['password']),
+            'user_type' => $data['user_type'],
             'department_id' => $data['department_id'],
             'position_id' => $data['position_id'],
-            'user_type' => $data['user_type']
         ]);
 
         $token = $user->createToken('main')->plainTextToken;
@@ -38,17 +38,20 @@ class AuthController extends Controller
     public function login(LoginRequest $request)
     {
         $credentials = $request->validated();
+
         if (!Auth::attempt($credentials)) {
-            return response([
+            return response()->json([
                 'message' => 'Provided email address or password is incorrect'
             ], 422);
         }
+
         /** @var User $user */
         $user = Auth::user();
         $token = $user->createToken('main')->plainTextToken;
+
         return response()->json([
             'user' => $user,
-            'token' => $token
+            'token' => $token,
         ]);
     }
 

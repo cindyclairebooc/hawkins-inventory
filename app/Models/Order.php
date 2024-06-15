@@ -14,8 +14,8 @@ class Order extends Model
     protected $table = 'orders';
 
     protected $fillable = [
-        'item_id',
-        'supplier_id',
+        'customer',
+        'product',
         'quantity',
         'status',
         // Add other fillable fields as needed

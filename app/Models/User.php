@@ -25,9 +25,9 @@ class User extends Authenticatable
         'gender',
         'date_of_birth',
         'password',
+        'user_type',
         'department_id',
         'position_id',
-        //'user_type',
     ];
 
     /**
@@ -52,6 +52,7 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
     public function department()
     {
         return $this->belongsTo(Department::class);

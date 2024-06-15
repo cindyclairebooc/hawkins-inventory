@@ -20,7 +20,7 @@ class UpdateUserRequest extends FormRequest
         return [
             'name' => 'required|string|max:55',
             'email' => 'required|email|unique:users,email,'.$this->id,
-            'user_type' => 'required|string|in:customer,other_type',
+            'user_type' => 'required|string|in:customer,admin,employee', // Ensure user_type is validated
             'password' => [
                 'confirmed',
                 Password::min(8)

@@ -1,16 +1,14 @@
 import { useEffect, useState } from "react";
-import axiosClient, { getCategories } from "../axios-client";
+import axiosClient from "../axios-client";
 import { Link } from "react-router-dom";
 
 export default function Items() {
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [categories, setCategories] = useState([]);
-  const [error, setError] = useState(null);
+  const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
     getItems();
-    getCategories();
   }, []);
 
   const onDelete = (item) => {
@@ -32,25 +30,18 @@ export default function Items() {
     axiosClient.get('/items')
       .then(({ data }) => {
         setLoading(false);
-        console.log("Fetched items:", data);
         setItems(data.data);
       })
       .catch((error) => {
         setLoading(false);
-        setError("Error fetching items: " + error.message);
-        console.error(error.response.data);
+        console.error("Error fetching items:", error);
       });
   };
 
-  const getCategories = () => {
-    axiosClient.get('/categories')
-      .then(({ data }) => {
-        setCategories(data.data);
-      })
-      .catch(() => {
-        console.error('Error fetching categories');
-      });
-  };
+  const filteredItems = items.filter(item => 
+    item.item_name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    item.id.toString().includes(searchQuery)
+  );
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -59,6 +50,35 @@ export default function Items() {
         <Link to="/items/new" className="btn bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
           Add new
         </Link>
+      </div>
+      <div className="relative max-w-xs mb-4">
+        <label htmlFor="items-search" className="sr-only">Search</label>
+        <input
+          type="text"
+          name="items-search"
+          id="items-search"
+          className="py-2 px-3 ps-9 block w-full border-gray-200 shadow-sm rounded-lg text-sm focus:z-10 focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
+          placeholder="Search for items"
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+        />
+        <div className="absolute inset-y-0 start-0 flex items-center pointer-events-none ps-3">
+          <svg
+            className="size-4 text-gray-400 dark:text-neutral-500"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <circle cx="11" cy="11" r="8"></circle>
+            <path d="m21 21-4.3-4.3"></path>
+          </svg>
+        </div>
       </div>
       <div className="bg-white shadow overflow-hidden sm:rounded-lg">
         <table className="min-w-full divide-y divide-gray-200">
@@ -69,7 +89,6 @@ export default function Items() {
               <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-teal-600 uppercase tracking-wider">Manufactured Date</th>
               <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-teal-600 uppercase tracking-wider">Price</th>
               <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-teal-600 uppercase tracking-wider">Stock</th>
-              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-teal-600 uppercase tracking-wider">Category</th>
               <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-teal-600 uppercase tracking-wider">Actions</th>
             </tr>
           </thead>
@@ -81,14 +100,13 @@ export default function Items() {
                 </td>
               </tr>
             ) : (
-              items.map((item) => (
+              filteredItems.map((item) => (
                 <tr key={item.id}>
                   <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{item.id}</td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{item.item_name}</td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{item.manufactured_date}</td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{item.price}</td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{item.stock}</td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{categories.find(c => c.id === item.category_id)?.cat_name}</td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
                     <Link to={'/items/' + item.id} className="text-indigo-600 hover:text-indigo-900 mr-2">Edit</Link>
                     <button onClick={() => onDelete(item)} className="text-red-600 hover:text-red-900">Delete</button>

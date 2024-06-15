@@ -18,7 +18,7 @@ class StoreItemRequest extends FormRequest
             'manufactured_date' => 'required|date',
             'price' => 'required|numeric|min:0',
             'stock' => 'required|integer|min:0',
-            'category_id' => 'required|exists:categories,id',
+            // 'category_id' => 'required|exists:categories,category_id',
         ];
     }
 }

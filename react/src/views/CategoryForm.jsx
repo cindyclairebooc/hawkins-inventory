@@ -1,17 +1,17 @@
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import axiosClient from "../axios-client";
 
-export default function CategoryForm() {
+function CategoryForm() {
   const { id } = useParams();
   const navigate = useNavigate();
-  const [category, setCategory] = useState({
-    id: null,
-    cat_name: '',
-    cat_description: '',
-  });
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState(null);
+  const [category, setCategory] = useState({
+    id: null,
+    category_name: '',
+    description: '',
+  });
 
   useEffect(() => {
     if (id) {
@@ -29,14 +29,14 @@ export default function CategoryForm() {
 
   const onSubmit = ev => {
     ev.preventDefault();
-    setLoading(true);
+    setErrors(null);
 
-    if (id) {
+    if (category.id) {
       axiosClient.put(`/categories/${category.id}`, category)
         .then(() => {
           navigate('/categories');
         })
-        .catch((err) => {
+        .catch(err => {
           const response = err.response;
           if (response && response.status === 422) {
             setErrors(response.data.errors);
@@ -47,8 +47,7 @@ export default function CategoryForm() {
         .then(() => {
           navigate('/categories');
         })
-        .catch((err) => {
-            setLoading(false);
+        .catch(err => {
           const response = err.response;
           if (response && response.status === 422) {
             setErrors(response.data.errors);
@@ -59,31 +58,34 @@ export default function CategoryForm() {
 
   return (
     <>
-      {category.id ? <h1>Update Category: {category.cat_name}</h1> : <h1>Create New Category</h1>}
+      {category.id ? <h1>Update Category: {category.category_name}</h1> : <h1>New Category</h1>}
       <div className="card animated fadeInDown">
+        {loading && <div className="text-center">Loading...</div>}
         {errors && (
           <div className="alert">
-            {Object.keys(errors).map((key, index) => (
-              <p key={index}>{errors[key][0]}</p>
+            {Object.keys(errors).map((key) => (
+              <p key={key}>{errors[key][0]}</p>
             ))}
           </div>
         )}
         {!loading && (
           <form onSubmit={onSubmit}>
             <input
-              value={category.cat_name}
-              onChange={(ev) => setCategory({ ...category, cat_name: ev.target.value })}
-              placeholder="Name"
+              value={category.category_name}
+              onChange={(ev) => setCategory({ ...category, category_name: ev.target.value })}
+              placeholder="Category Name"
             />
             <input
-              value={category.cat_description}
-              onChange={(ev) => setCategory({ ...category, cat_description: ev.target.value })}
+              value={category.description}
+              onChange={(ev) => setCategory({ ...category, description: ev.target.value })}
               placeholder="Description"
             />
-            <button className="btn">Save</button>
+            <button type="submit" className="btn">{category.id ? 'Update' : 'Save'}</button>
           </form>
         )}
       </div>
     </>
   );
 }
+
+export default CategoryForm

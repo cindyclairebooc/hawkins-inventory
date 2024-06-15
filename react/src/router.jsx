@@ -7,22 +7,22 @@ import GuestLayout from './components/GuestLayout.jsx';
 import Dashboard from './views/Dashboard.jsx';
 import UserForm from './views/UserForm.jsx';
 import Users from './views/Users.jsx';
-import Order from './views/Order.jsx';
+import Item from './views/Item.jsx';
+import ItemForm from './views/ItemForm.jsx';
+import Categories from './views/Categories.jsx';
+import CategoryForm from './views/CategoryForm.jsx';
+import CustomerDashboard from './views/CustomerDashboard.jsx';
+import DefaultLayoutCustomer from './components/DefaultLayoutCustomer.jsx';
+import ItemsView from './views/ItemsView.jsx';
+import Orders from './views/Order.jsx';
 import OrderForm from './views/OrderForm.jsx';
+import Customer from './views/Customer.jsx';
+import Transaction from './views/Transaction.jsx';
 import Department from './views/Department.jsx';
 import DepartmentForm from './views/DepartmentForm.jsx';
 import Position from './views/Position.jsx';
 import PositionForm from './views/PositionForm.jsx';
-import Items from './views/Item.jsx';
-import ItemForm from './views/ItemForm.jsx';
-import Category from './views/Category.jsx';
-import CategoryForm from './views/CategoryForm.jsx';
-import Supplier from './views/Supplier.jsx';
-import SupplierForm from './views/SupplierForm.jsx';
-import Transaction from'./views/Transaction.jsx';
-import TransactionForm from './views/TransactionForm.jsx';
-import CustomerDashboard from './views/CustomerDashboard.jsx';
-import DefaultLayoutCustomer from './components/DefaultLayoutCustomer.jsx';
+
 
 
 const router = createBrowserRouter ([
@@ -48,11 +48,35 @@ const router = createBrowserRouter ([
             },
             {
                 path: '/users/:id',
-                element: <UserForm key="userUpdate"/>,
+                element: <UserForm />,
+            },
+            {
+                path: '/items',
+                element: <Item />,
+            },
+            {
+                path: '/items/new',
+                element: <ItemForm />,
+            },
+            {
+                path: '/items/:id',
+                element: <ItemForm key="itemUpdate" />,
+            },
+            {
+                path: '/categories',
+                element: <Categories />,
+            },
+            {
+                path: '/categories/new',
+                element: <CategoryForm />,
+            },
+            {
+                path: '/categories/:id',
+                element: <CategoryForm key=" Category Update"/>,
             },
             {
                 path: '/orders',
-                element: <Order/>,
+                element: <Orders/>,
             },
             {
                 path: '/orders/new',
@@ -63,8 +87,16 @@ const router = createBrowserRouter ([
                 element: <OrderForm key="orderUpdate"/>,
             },
             {
+                path: '/customer',
+                element: <Customer />,
+            },
+            {
+                path: '/transactions',
+                element: <Transaction />,
+            },
+            {
                 path: '/departments',
-                element: <Department/>,
+                element: <Department />,
             },
             {
                 path: '/departments/new',
@@ -72,11 +104,11 @@ const router = createBrowserRouter ([
             },
             {
                 path: '/departments/:id',
-                element: <DepartmentForm key="departmentUpdate"/>,
+                element: <DepartmentForm />,
             },
             {
                 path: '/positions',
-                element: <Position/>,
+                element: <Position />,
             },
             {
                 path: '/positions/new',
@@ -84,57 +116,11 @@ const router = createBrowserRouter ([
             },
             {
                 path: '/positions/:id',
-                element: <PositionForm key="positionUpdate"/>,
+                element: <PositionForm />,
             },
-            {
-                path: '/items',
-                element: <Items />,
-            },
-            {
-                path: '/items/new',
-                element: <ItemForm />,
-            },
-            {
-                path: '/items/:id',
-                element: <ItemForm key="ItemUpdate"/>,
-            },
-            {
-                path: '/categories',
-                element: <Category />,
-            },
-            {
-                path: '/categories/new',
-                element: <CategoryForm />,
-            },
-            {
-                path: '/categories/:id',
-                element: <CategoryForm key="CategoryUpdate"/>,
-            },
-            {
-                path: '/suppliers',
-                element: <Supplier />,
-            },
-            {
-                path: '/suppliers/new',
-                element: <SupplierForm />,
-            },
-            {
-                path: '/suppliers/:id',
-                element: <SupplierForm key="SupplierUpdate"/>,
-            },
-            {
-                path: '/transactions',
-                element: <Transaction />,
-            },
-            {
-                path: '/transactions/new',
-                element: <TransactionForm />,
-            },
-            {
-                path: '/transactions/:id',
-                element: <TransactionForm key="TransactionUpdate"/>,
-            },
-        ]
+
+        ], 
+        
     },
     {
         path: '/',
@@ -155,16 +141,19 @@ const router = createBrowserRouter ([
         element: <NotFound />,
     },
     {
-        path: '/customer/dashboard',
+        path: '/customer',
         element: <DefaultLayoutCustomer />,
         children: [
             {
                 path: '/customer/dashboard',
                 element: <CustomerDashboard />,
             },
+            {
+                path: '/customer/dashboard/items/view',
+                element: <ItemsView />,
+            },
         ]
-    }
+    },
 ]);
 
 export default router;
-

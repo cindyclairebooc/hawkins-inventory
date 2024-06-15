@@ -19,7 +19,14 @@ class CreateItemsTable extends Migration
             $table->date('manufactured_date');
             $table->decimal('price', 10, 2);
             $table->integer('stock');
+            // $table->unsignedBigInteger('category_id');
             $table->timestamps();
+
+        //     $table->foreign('category_id')
+        //         ->references('category_id')
+        //         ->on('category')
+        //         ->onDelete('cascade')
+        //         ->onUpdate('cascade');
         });
     }
 

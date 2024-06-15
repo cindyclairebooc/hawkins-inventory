@@ -34,7 +34,7 @@ class SignupRequest extends FormRequest
             ],
             'gender' => 'required|in:Male,Female',
             'date_of_birth' => 'required|date|before:today',
-            'user_type' => 'required|string|in:customer,admin'
+            'user_type' => 'required|string|in:customer,admin' // Ensure user_type is validated
         ];
     }
 }

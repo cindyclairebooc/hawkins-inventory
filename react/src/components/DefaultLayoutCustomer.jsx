@@ -26,21 +26,21 @@ export default function DefaultLayoutCustomer() {
                 setUser(data)
             })
     }
-
+    
     )
 
 
     return (
         <div id="defaultLayout" className="flex h-screen">
-      <aside className="w-64 bg-gray-800 text-white flex flex-col p-4 space-y-4">
-        <Link to="/dashboard" className="text-lg font-medium hover:text-gray-300">
+      <aside className="w-64 bg-blue-500 text-white flex flex-col p-4 space-y-4">
+        <Link to="/customer/dashboard" className="text-lg font-medium hover:text-gray-300">
           Dashboard
         </Link>
         {/* <Link to="/users" className="text-lg font-medium hover:text-gray-300">
           Employees
         </Link> */}
-        <Link to="/items" className="text-lg font-medium hover:text-gray-300">
-          Items
+        <Link to="/customer/dashboard/items/view" className="text-lg font-medium hover:text-gray-300">
+          Products
         </Link>
         {/* <Link to="/categories" className="text-lg font-medium hover:text-gray-300">
           Categories

@@ -8,22 +8,22 @@ export default function Signup() {
   const emailRef = createRef();
   const genderRef = createRef();
   const birthRef = createRef();
-  const userTypeRef = createRef();
+  const userTypeRef = createRef(); // Add user type reference
   const passwordRef = createRef();
   const passwordConfirmationRef = createRef();
   const { setUser, setToken } = useStateContext();
   const [errors, setErrors] = useState(null);
-  const navigate = useNavigate();
+  const navigate = useNavigate(); // Initialize navigate
 
   const onSubmit = ev => {
     ev.preventDefault();
-  
+
     const payload = {
       name: nameRef.current.value,
       email: emailRef.current.value,
       gender: genderRef.current.value,
       date_of_birth: birthRef.current.value,
-      user_type: userTypeRef.current.value,
+      user_type: userTypeRef.current.value, // Include user type
       password: passwordRef.current.value,
       password_confirmation: passwordConfirmationRef.current.value,
     };
@@ -33,7 +33,7 @@ export default function Signup() {
         const { user, token, redirect_url } = data;
         setUser(user);
         setToken(token);
-        navigate(redirect_url);
+        navigate(redirect_url); // Navigate based on redirect_url
       })
       .catch(err => {
         const response = err.response;
@@ -45,7 +45,7 @@ export default function Signup() {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100">
+    <div className="flex items-center justify-center min-h-screen bg-blue-100">
       <div className="bg-white p-8 rounded shadow-md w-full max-w-md">
         <form onSubmit={onSubmit}>
           <h1 className="text-2xl font-bold mb-6 text-blue-600">Signup for Free</h1>
@@ -90,5 +90,5 @@ export default function Signup() {
         </form>
       </div>
     </div>
-    );
-  }
+  );
+}

@@ -10,8 +10,8 @@ class OrderResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'item_id' => $this->item_id,
-            'supplier_id' => $this->supplier_id,
+            'customer' => $this->customer,
+            'product' => $this->product,
             'quantity' => $this->quantity,
             'status' => $this->status,
             'created_date' => $this->created_at->format('Y-m-d H:i:s'),
